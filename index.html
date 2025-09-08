@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rimpa Choudhury — QE/SDET • AI/ML</title>
+  <meta name="description" content="Rimpa Choudhury — Senior QE/SDET leader building automation at scale, with AI/ML experience (UT Austin McCombs). Portfolio, experience, and contact." />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:title" content="Rimpa Choudhury — QE/SDET • AI/ML" />
+  <meta property="og:description" content="Senior QE/SDET leader building automation at scale, with AI/ML experience. Portfolio, experience, and contact." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://rimpachoudhury.com" />
+  <meta property="og:image" content="https://rimpachoudhury.com/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (replace with your own) -->
+  <link rel="icon" href="/favicon.ico" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0c10; --card:#111218; --text:#e7e9ee; --muted:#a5adbd; --accent:#7c5cff; --accent-2:#4dd0e1; --border:#232433;
+    }
+    @media (prefers-color-scheme: light){
+      :root{ --bg:#ffffff; --card:#f7f8fb; --text:#0f172a; --muted:#475569; --accent:#5b3df5; --accent-2:#0ea5e9; --border:#e2e8f0; }
+    }
+    *{ box-sizing: border-box }
+    html,body{ margin:0; padding:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--text); background:var(--bg); }
+    a{ color:inherit; text-decoration: none }
+    .container{ max-width:1100px; margin:0 auto; padding: 0 20px }
+    header{ position:sticky; top:0; backdrop-filter: saturate(180%) blur(8px); background:color-mix(in oklab, var(--bg) 85%, transparent); border-bottom:1px solid var(--border); z-index:10 }
+    .nav{ display:flex; align-items:center; justify-content:space-between; height:64px }
+    .brand{ display:flex; align-items:center; gap:.6rem; font-weight:700 }
+    .dot{ width:10px; height:10px; border-radius:50%; background:linear-gradient(135deg,var(--accent),var(--accent-2)); box-shadow:0 0 14px color-mix(in oklab, var(--accent) 60%, transparent) }
+    .links{ display:flex; gap:1rem; align-items:center }
+    .btn{ display:inline-flex; align-items:center; gap:.5rem; padding:.6rem 1rem; border:1px solid var(--border); border-radius:999px; transition: .2s transform, .2s box-shadow, .2s background; font-weight:600 }
+    .btn:hover{ transform: translateY(-1px); box-shadow:0 8px 20px rgba(0,0,0,.15) }
+    .btn.primary{ background:linear-gradient(135deg,var(--accent),var(--accent-2)); color:white; border:none }
+
+    .hero{ padding: 72px 0 40px; display:grid; grid-template-columns: 1.2fr .8fr; gap:40px; align-items:center }
+    .hero h1{ font-size: clamp(2rem, 3.3vw, 3rem); line-height:1.1; margin:.2rem 0 1rem }
+    .kicker{ letter-spacing:.1em; text-transform:uppercase; font-size:.8rem; color:var(--muted) }
+    .lead{ color:var(--muted); font-size: clamp(1rem, 1.2vw, 1.1rem) }
+    .card{ background:var(--card); border:1px solid var(--border); border-radius:20px; padding:22px; }
+    .pill{ display:inline-block; padding:.28rem .6rem; border:1px solid var(--border); border-radius:999px; color:var(--muted); font-size:.78rem }
+    .stack{ display:flex; flex-wrap:wrap; gap:.5rem }
+
+    section{ padding: 26px 0 }
+    h2{ font-size: clamp(1.3rem, 2.2vw, 1.6rem); margin: 0 0 12px }
+    .grid{ display:grid; gap:16px }
+    .grid.projects{ grid-template-columns: repeat(12, 1fr) }
+    .project{ grid-column: span 6; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, color-mix(in oklab, var(--card) 94%, transparent), color-mix(in oklab, var(--card) 100%, transparent)); }
+    .project > div{ padding:16px }
+    .project h3{ margin:.2rem 0 .4rem; font-size:1.05rem }
+    .project p{ margin:0; color:var(--muted); font-size:.95rem }
+    .project .tags{ display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.6rem }
+    .tag{ font-size:.72rem; border:1px dashed var(--border); color:var(--muted); padding:.24rem .5rem; border-radius:999px }
+
+    .two-col{ display:grid; grid-template-columns: 1fr 1fr; gap:16px }
+    .timeline{ display:grid; gap:14px }
+    .item{ border-left:3px solid color-mix(in oklab, var(--accent) 40%, var(--border)); padding-left:12px }
+    .item h3{ margin:.1rem 0; font-size:1rem }
+    .item .meta{ font-size:.85rem; color:var(--muted) }
+
+    footer{ margin: 40px 0 60px; border-top:1px solid var(--border); padding-top:20px; color:var(--muted) }
+
+    /* Responsive */
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; padding-top: 40px }
+      .grid.projects .project{ grid-column: span 12 }
+      .two-col{ grid-template-columns: 1fr }
+      .links{ display:none }
+      .menu-btn{ display:inline-flex }
+    }
+    .menu-btn{ display:none; border:1px solid var(--border); border-radius:10px; padding:.5rem .7rem; background:transparent; color:var(--text) }
+    #mnav{ display:none }
+    #mnav.open{ display:block; padding:8px 20px 16px; border-bottom:1px solid var(--border) }
+    #mnav a{ display:block; padding:8px 0; color:var(--muted) }
+
+    .resume a{ text-decoration:underline; text-underline-offset:3px }
+  </style>
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Rimpa Choudhury",
+    "url":"https://rimpachoudhury.com",
+    "jobTitle":"Senior QE/SDET & AI/ML",
+    "sameAs":[
+      "https://www.linkedin.com/in/rimpachoudhury"
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top"><span class="dot"></span> Rimpa Choudhury</a>
+      <nav class="links">
+        <a href="#experience">Experience</a>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#contact">Contact</a>
+        <a class="btn" href="#resume">Résumé</a>
+      </nav>
+      <button class="menu-btn" aria-label="Open menu" onclick="document.getElementById('mnav').classList.toggle('open')">☰</button>
+    </div>
+    <div id="mnav" class="container">
+      <a href="#experience" onclick="this.parentElement.classList.remove('open')">Experience</a>
+      <a href="#projects" onclick="this.parentElement.classList.remove('open')">Projects</a>
+      <a href="#skills" onclick="this.parentElement.classList.remove('open')">Skills</a>
+      <a href="#contact" onclick="this.parentElement.classList.remove('open')">Contact</a>
+      <a href="#resume" onclick="this.parentElement.classList.remove('open')">Résumé</a>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero" id="top">
+      <div>
+        <div class="kicker">Quality Engineering • Automation • AI/ML</div>
+        <h1>Building reliable software with smart automation and thoughtful quality strategy.</h1>
+        <p class="lead">Senior QE/SDET with 10+ years leading test automation at scale (Java, Playwright/Cypress, REST‑Assured/Karate) across fintech and identity protection. Recently completed the UT Austin McCombs Post‑Graduate Program in AI & ML; exploring LLM testing, RAG evaluation, and QA agents.</p>
+        <div class="stack" style="margin-top:14px">
+          <span class="pill">San Jose, CA</span>
+          <span class="pill">Open to collaborate</span>
+          <a class="btn primary" href="#contact">Get in touch</a>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2 style="margin-top:0">Quick Highlights</h2>
+          <ul>
+            <li>Led API & UI automation frameworks (Playwright, Cypress, Selenium, Karate) with CI/CD.</li>
+            <li>AI/ML: LLM evaluation (DeepEval), RAG pipeline testing, vector DBs (Chroma).</li>
+            <li>Fintech & Identity: Nirvana neobank beta launch in &lt; 7 months; AIP automation.</li>
+            <li>DevOps‑minded: Dockerized test suites, Buildkite pipelines, env secrets.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="experience" class="two-col">
+      <div class="card">
+        <h2>Experience</h2>
+        <div class="timeline">
+          <div class="item">
+            <h3>Sr. Quality Engineer — Allstate Identity Protection</h3>
+            <div class="meta">San Jose, CA • 2023 — Present</div>
+            <p>Automated REST APIs and web flows with Java, Karate, Cucumber; introduced LLM testing with DeepEval; established quality strategy across microservices and pipelines.</p>
+          </div>
+          <div class="item">
+            <h3>Lead SDET — Nirvana.Money</h3>
+            <div class="meta">San Jose, CA • 2021 — 2023</div>
+            <p>Laid down the quality vision and built the core automation framework enabling a new neobank & digital card beta in under 7 months; automated partner integrations (core banking, identity/fraud, credit underwriting).</p>
+          </div>
+          <div class="item">
+            <h3>Software Engineering Lead in Test — LexisNexis / ThreatMetrix</h3>
+            <div class="meta">San Jose, CA • Prior</div>
+            <p>QE lead across data engineering, third‑party integrations, web portal & ML products; end‑to‑end test ownership.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card resume" id="resume">
+        <h2>Résumé</h2>
+        <p>Download a PDF résumé here: <a href="/Rimpa-Choudhury-Resume.pdf" download>Rimpa‑Choudhury‑Resume.pdf</a>. Want a one‑pager? <a href="/Rimpa-Choudhury-Resume-1page.pdf" download>Grab the 1‑page version</a>.</p>
+        <p>LinkedIn: <a href="https://www.linkedin.com/in/rimpachoudhury" target="_blank" rel="noreferrer">linkedin.com/in/rimpachoudhury</a></p>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="card">
+        <h2>Selected Projects</h2>
+        <div class="grid projects">
+          <article class="project">
+            <div>
+              <h3>LLM QA Agent & RAG Eval</h3>
+              <p>Prototype QA agent for evaluating RAG pipelines and prompts; DeepEval tests; hallucination checks; report dashboards.</p>
+              <div class="tags">
+                <span class="tag">Python</span><span class="tag">LangChain/LangGraph</span><span class="tag">DeepEval</span><span class="tag">Chroma</span>
+              </div>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <h3>Neobank E2E Automation</h3>
+              <p>Unified API/UI regression suite driving a fintech beta launch; parallelizable across envs with Buildkite.</p>
+              <div class="tags">
+                <span class="tag">Playwright</span><span class="tag">Karate</span><span class="tag">Docker</span><span class="tag">Buildkite</span>
+              </div>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <h3>Identity Protection Microservices</h3>
+              <p>Contract and integration tests for AuthX/OTP/Tele services; CI gates; synthetic test data generation.</p>
+              <div class="tags">
+                <span class="tag">Java</span><span class="tag">REST‑Assured</span><span class="tag">TestNG</span>
+              </div>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <h3>Test Insights Dashboard</h3>
+              <p>Lightweight analytics layer surfacing flake, coverage, and MTTR; PR annotations and quality gates.</p>
+              <div class="tags">
+                <span class="tag">Node</span><span class="tag">Postgres</span><span class="tag">Grafana</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="two-col">
+      <div class="card">
+        <h2>Core Skills</h2>
+        <div class="stack">
+          <span class="pill">Playwright</span><span class="pill">Cypress</span><span class="pill">Selenium</span>
+          <span class="pill">Java</span><span class="pill">REST‑Assured</span><span class="pill">Karate</span>
+          <span class="pill">Docker</span><span class="pill">CI/CD</span><span class="pill">Buildkite</span>
+          <span class="pill">Python</span><span class="pill">LLM Testing</span><span class="pill">RAG</span>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Speaking & Community</h2>
+        <ul>
+          <li>Mentor & panelist on QA automation and AI in testing.</li>
+          <li>Resume and interview prep for SDET roles.</li>
+          <li>Occasional blog posts on quality strategies and LLM eval.</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="two-col">
+      <div class="card">
+        <h2>Contact</h2>
+        <p>Best way to reach me: <a href="mailto:hello@rimpachoudhury.com">hello@rimpachoudhury.com</a></p>
+        <p>Or connect on <a href="https://www.linkedin.com/in/rimpachoudhury" target="_blank" rel="noreferrer">LinkedIn</a>.</p>
+      </div>
+      <div class="card">
+        <h2>Newsletter (Optional)</h2>
+        <p>Plug in your email service form here (ConvertKit/Mailchimp/etc.)</p>
+      </div>
+    </section>
+
+    <footer class="container">
+      <div class="two-col">
+        <div>
+          © <span id="year"></span> Rimpa Choudhury. All rights reserved.
+        </div>
+        <div style="text-align:right">
+          <a href="#top">Back to top ↑</a>
+        </div>
+      </div>
+    </footer>
+  </main>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+  <!-- Analytics placeholder: paste your provider snippet here (e.g., Plausible/GA) -->
+</body>
+</html>
