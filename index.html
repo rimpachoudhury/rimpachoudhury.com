@@ -48,11 +48,11 @@
     /* Projects grid */
     .grid{ display:grid; gap:16px }
     .grid.projects{ grid-template-columns: repeat(12, 1fr) }
-    .project{ grid-column: span 6; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, color-mix(in oklab, var(--card) 94%, transparent), color-mix(in oklab, var(--card) 100%, transparent)); transition:.2s transform,.2s box-shadow }
+    .project{ grid-column: span 12; border:1px solid var(--border); border-radius:16px; overflow:hidden; background:linear-gradient(180deg, color-mix(in oklab, var(--card) 94%, transparent), color-mix(in oklab, var(--card) 100%, transparent)); transition:.2s transform,.2s box-shadow }
     .project:hover{ transform:translateY(-2px); box-shadow:0 12px 28px rgba(0,0,0,.08) }
     .project > div{ padding:16px }
-    .project h3{ margin:.2rem 0 .4rem; font-size:1.05rem }
-    .project p{ margin:0; color:var(--muted); font-size:.95rem }
+    .project h3{ margin:.2rem 0 .4rem; font-size:1.2rem }
+    .project p{ margin:0 0 .6rem; color:var(--muted); font-size:.95rem }
     .project .tags{ display:flex; gap:.4rem; flex-wrap:wrap; margin-top:.6rem }
     .tag{ font-size:.75rem; border:1px dashed var(--border); color:var(--muted); padding:.28rem .6rem; border-radius:999px }
 
@@ -62,8 +62,6 @@
       .grid.projects .project{ grid-column: span 12 }
       .links{ display:none }
     }
-      html{ scroll-behavior:smooth }
-    section, [id]{ scroll-margin-top: 88px }
   </style>
 </head>
 <body>
@@ -75,7 +73,7 @@
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
-        <a class="btn" href="RimpaChoudhury_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
+        <a class="btn" href=\"./RimpaChoudhury_Resume.pdf\" target="_blank" rel="noopener">Résumé</a>
       </nav>
     </div>
   </header>
@@ -85,7 +83,7 @@
       <div>
         <div class="kicker">QUALITY ENGINEERING • AUTOMATION • AI/ML</div>
         <h1>Building reliable software with smart automation and thoughtful quality strategy.</h1>
-        <p class="lead">Senior QE/SDET with 10+ years leading test automation at scale (Java, Playwright/Cypress, REST‑Assured/Karate) across fintech and identity protection. Recently completed the UT Austin McCombs Post‑Graduate Program in AI & ML; exploring LLM testing, RAG evaluation, and QA agents.</p>
+        <p class="lead">Senior QE/SDET with 10+ years leading test automation at scale (Java, Playwright/Cypress, REST-Assured/Karate) across fintech and identity protection. Recently completed the UT Austin McCombs Post-Graduate Program in AI & ML; exploring LLM testing, RAG evaluation, and QA agents.</p>
         <div class="stack">
           <span class="pill">San Jose, CA</span>
           <span class="pill">Open to collaborate</span>
@@ -97,8 +95,8 @@
         <ul style="margin:0; padding-left:1.1rem">
           <li>Led API & UI automation frameworks (Playwright, Cypress, Selenium, Karate) with CI/CD.</li>
           <li>AI/ML: LLM evaluation (DeepEval), RAG pipeline testing, vector DBs (Chroma).</li>
-          <li>Fintech & Identity: Nirvana neobank beta launch in &lt; 7 months; AIP automation.</li>
-          <li>DevOps‑minded: Dockerized test suites, Buildkite pipelines, env secrets.</li>
+          <li>Fintech & Identity: Nirvana neobank beta launch in < 7 months; AIP automation.</li>
+          <li>DevOps-minded: Dockerized test suites, Buildkite pipelines, env secrets.</li>
         </ul>
       </aside>
     </section>
@@ -134,45 +132,70 @@
           </div>
         </div>
       </div>
+      <div class="card" id="projects">
+        <h2>Selected Projects</h2>
+        <div class="grid projects">
+          <article class="project">
+            <div>
+              <h3>E2E ML Solution to Forecast Sales & Optimize Inventory</h3>
+              <p>Partnered with SuperKart—a multi-city retail chain—via The University of Texas at Austin to develop a forecasting system that predicts outlet-level sales revenue, enabling data-driven procurement and regional strategies. Performed EDA, handled missing values/outliers, engineered features, and created a reusable preprocessing pipeline. Trained Random Forest and XGBoost models with grid-search, significantly reducing RMSE over baseline.</p>
+              <p>Backend: Exposed the model via Flask REST API, containerized with Docker, and hosted on Hugging Face Spaces for scalable inference. Frontend: Developed an interactive Streamlit app—also deployed to Hugging Face Spaces—to visualize forecasts and enable what-if scenario planning.</p>
+              <p><a class='extlink' href='https://huggingface.co/spaces/rimpachoudhury/SuperKart_FE' target='_blank' rel='noopener noreferrer'>View on Hugging Face ↗</a></p>
+              <div class="tags">
+                <span class="tag">Flask</span>
+                <span class="tag">Streamlit</span>
+                <span class="tag">Hugging Face Spaces</span>
+                <span class="tag">Regression Modeling (Random Forest, XGBoost)</span>
+                <span class="tag">Hyperparameter Tuning (Grid Search)</span>
+                <span class="tag">Exploratory Data Analysis (EDA)</span>
+              </div>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <h3>Medical Assistant: Natural Language Processing with Generative AI</h3>
+              <p>Developed an AI-powered solution using medical manuals to tackle information overload in healthcare. Aimed at enhancing diagnostic accuracy, treatment efficiency, and patient outcomes through streamlined decision-making with standardized care practice.</p>
+              <div class="tags">
+                <span class="tag">RAG</span>
+                <span class="tag">Chunking</span>
+                <span class="tag">Embedding</span>
+                <span class="tag">Fine Tuning RAG</span>
+                <span class="tag">Prompt Engineering</span>
+              </div>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <h3>Loan Modelling</h3>
+              <p>Associated with The University of Texas at Austin. Built a predictive model to determine whether a liability customer will buy personal loans, to understand which customer attributes are most significant in driving purchases, and identify which customer segments to target more effectively.</p>
+              <div class="tags">
+                <span class="tag">Scikit-Learn</span>
+                <span class="tag">DecisionTree</span>
+                <span class="tag">Model Building</span>
+                <span class="tag">Model Performance Evaluation</span>
+              </div>
+            </div>
+          </article>
+          <article class="project">
+            <div>
+              <h3>FoodHub</h3>
+              <p>Associated with The University of Texas at Austin. Performed exploratory data analysis and provided actionable insights for a food aggregator company to understand the demand for different restaurants and cuisines. Helped improve customer experience and business outcomes.</p>
+              <div class="tags">
+                <span class="tag">NumPy</span>
+                <span class="tag">Pandas</span>
+                <span class="tag">Seaborn</span>
+                <span class="tag">Exploratory Data Analysis</span>
+                <span class="tag">Univariate Analysis</span>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
       <div class="card" id="resume">
         <h2>Résumé</h2>
-        <p><a href="RimpaChoudhury_Resume.pdf" download>Download Résumé (PDF)</a><br>
-        <a href="RimpaChoudhury_Resume.pdf" target="_blank">View Résumé Online</a></p>
+        <p><a href=\"./RimpaChoudhury_Resume.pdf\" download>Download Résumé (PDF)</a><br>
+        <a href=\"./RimpaChoudhury_Resume.pdf\" target="_blank">View Résumé Online</a></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/rimpachoudhury" target="_blank">linkedin.com/in/rimpachoudhury</a></p>
-      </div>
-    </section>
-
-    <section id="projects" class="card">
-      <h2>Selected Projects</h2>
-      <div class="grid projects">
-        <article class="project">
-          <div>
-            <h3>LLM QA Agent & RAG Evaluation</h3>
-            <p>Developed a QA agent prototype to evaluate RAG pipelines and prompts, with DeepEval tests, hallucination checks, and reporting dashboards.</p>
-            <div class="tags"><span class="tag">Python</span><span class="tag">LangChain</span><span class="tag">DeepEval</span><span class="tag">Chroma</span></div>
-          </div>
-        </article>
-        <article class="project">
-          <div>
-            <h3>Neobank E2E Automation</h3>
-            <p>Created a unified API/UI regression suite driving Nirvana’s beta launch; parallelizable across environments using Buildkite.</p>
-            <div class="tags"><span class="tag">Playwright</span><span class="tag">Karate</span><span class="tag">Docker</span><span class="tag">Buildkite</span></div>
-          </div>
-        </article>
-        <article class="project">
-          <div>
-            <h3>Identity Protection Microservices</h3>
-            <p>Implemented contract and integration tests for AuthX/OTP/Tele services with CI gates and synthetic data generation.</p>
-            <div class="tags"><span class="tag">Java</span><span class="tag">REST‑Assured</span><span class="tag">TestNG</span></div>
-          </div>
-        </article>
-        <article class="project">
-          <div>
-            <h3>Test Insights Dashboard</h3>
-            <p>Designed analytics for flake detection, coverage metrics, and MTTR with Grafana dashboards and PR annotations.</p>
-            <div class="tags"><span class="tag">Node</span><span class="tag">Postgres</span><span class="tag">Grafana</span></div>
-          </div>
-        </article>
       </div>
     </section>
 
@@ -203,11 +226,11 @@
     <p>© <span id="year"></span> Rimpa Choudhury. All rights reserved.</p>
   </footer>
 
-  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
   <script>
-    // Ensure hash links (e.g., #contact) scroll correctly with sticky header offset
+    document.getElementById('year').textContent=new Date().getFullYear();
+    // Smooth scroll with header offset
     (function(){
-      var OFFSET = 88; // header height
+      var OFFSET = 88;
       document.querySelectorAll('a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
           var id = a.getAttribute('href').slice(1);
