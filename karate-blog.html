@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Karate for REST API Automation — Gradle Setup & Best Practices</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      color: #222;
+    }
+    header, footer {
+      background: #f5f7fa;
+      color: #333;
+      text-align: center;
+      padding: 1rem;
+      border-bottom: 1px solid #ddd;
+    }
+    footer {
+      border-top: 1px solid #ddd;
+      border-bottom: none;
+      margin-top: 2rem;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem;
+    }
+    h1, h2, h3 {
+      color: #2c3e50;
+    }
+    pre, code {
+      background: #f9f9f9;
+      padding: 0.5rem;
+      border-radius: 4px;
+      overflow-x: auto;
+      font-family: "Courier New", monospace;
+    }
+    pre {
+      margin: 1rem 0;
+      border: 1px solid #e1e1e1;
+    }
+    ul, ol {
+      margin-left: 1.5rem;
+    }
+    blockquote {
+      border-left: 4px solid #6aa2ff;
+      padding-left: 1rem;
+      color: #555;
+      margin: 1rem 0;
+      background: #f9fcff;
+    }
+    .code-title {
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+    a {
+      color: #0066cc;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Karate for REST API Automation — Gradle Setup & Best Practices</h1>
+  </header>
+
+  <main>
+    <p>API automation is essential for modern engineering teams, but setting up a framework can sometimes feel overwhelming. <strong>Karate</strong> changes that by combining HTTP client, assertions, and BDD-style readability in one lightweight tool—with zero glue code.</p>
+
+    <p>The Karate automation framework is open-source and pretty versatile — you can use it for API testing, performance runs, and even UI checks. It’s built on top of Cucumber and uses the friendly Gherkin syntax, so even if you’re not a hardcore coder, you can still pick it up fast.</p>
+
+    <h2>Why Karate?</h2>
+    <ul>
+      <li><strong>All-in-one:</strong> HTTP calls, JSON/XML assertions, mocks—no extra libraries.</li>
+      <li><strong>Low ceremony:</strong> Human-readable <code>.feature</code> files; minimal Java glue.</li>
+      <li><strong>Powerful assertions:</strong> JSONPath, embedded JavaScript, schema/contract checks.</li>
+      <li><strong>Fast & parallel:</strong> Parallel execution built in.</li>
+      <li><strong>Great DX:</strong> Live logging, readable reports, and easy environment switching.</li>
+    </ul>
+
+    <h2>Quick Start (Gradle)</h2>
+    <h3>Project Structure (Gradle)</h3>
+    <pre><code>api-tests
+├─ build.gradle
+├─ settings.gradle
+├─ src
+│  ├─ test
+│  │  ├─ java
+│  │  │  └─ runners
+│  │  │     └─ ApiTestRunner.java
+│  │  └─ resources
+│  │     ├─ karate-config.js
+│  │     ├─ features
+│  │     │  ├─ health.feature
+│  │     │  ├─ users
+│  │     │  │  ├─ users-crud.feature
+│  │     │  │  └─ users-negative.feature
+│  │     │  └─ auth
+│  │     │     └─ login.feature
+│  │     └─ data
+│  │        └─ users.csv
+└─ README.md</code></pre>
+
+    <h3>Gradle Setup</h3>
+    <p class="code-title">build.gradle</p>
+    <pre><code>plugins {
+  id 'java'
+}
+
+repositories {
+  mavenCentral()
+}
+
+ext {
+  karateVersion = '1.5.0'
+}
+
+dependencies {
+  testImplementation "com.intuit.karate:karate-junit5:${karateVersion}"
+}
+
+test {
+  useJUnitPlatform()
+  systemProperty "karate.env", System.getProperty("karate.env")
+  systemProperty "karate.options", System.getProperty("karate.options")
+
+  testLogging {
+    events "passed", "skipped", "failed"
+  }
+}</code></pre>
+
+    <p class="code-title">settings.gradle</p>
+    <pre><code>rootProject.name = 'api-tests'</code></pre>
+
+    <h3>karate-config.js (env & baseUrl)</h3>
+    <pre><code>function fn() {
+  var env = karate.env || 'qa';
+  var config = { env: env };
+  if (env == 'qa')    config.baseUrl = 'https://qa-api.example.com';
+  if (env == 'pre')   config.baseUrl = 'https://pre-api.example.com';
+  if (env == 'prod')  config.baseUrl = 'https://api.example.com';
+
+  config.headers = { 'Content-Type': 'application/json' };
+  config.clientId = karate.properties['client.id'] || karate.env && karate.env.clientId;
+  config.clientSecret = karate.properties['client.secret'] || karate.env && karate.env.clientSecret;
+
+  return config;
+}</code></pre>
+
+    <p>Run with a selected environment:</p>
+    <pre><code>./gradlew test -Dkarate.env=qa -Dkarate.options="--tags @smoke"</code></pre>
+
+    <h2>First Test: Health Check</h2>
+    <pre><code>Feature: API health
+  Background:
+    * url baseUrl
+
+  @smoke
+  Scenario: service is up
+    Given path 'health'
+    When method get
+    Then status 200
+    And match response == { status: 'UP' }</code></pre>
+
+    <h2>Schema & Contract Checks</h2>
+    <pre><code>Scenario: user response schema
+  Given path 'users', 123
+  When method get
+  Then status 200
+  And match response == { id: '#number', name: '#string', email: '#string? _.includes("@")' }</code></pre>
+
+    <h2>Retries, Timeouts, and Robustness</h2>
+    <pre><code>Background:
+  * configure retry = { count: 3, interval: 1000 }
+  * configure http = { readTimeout: 15000, connectTimeout: 5000 }</code></pre>
+
+    <h2>CI/CD (Gradle)</h2>
+    <p class="code-title">Buildkite</p>
+    <pre><code>steps:
+  - label: ":karate: API tests"
+    commands:
+      - ./gradlew test -Dkarate.env=${ENV} -Dkarate.options="--tags @smoke"
+    agents:
+      queue: linux</code></pre>
+
+    <h2>Wrap-Up</h2>
+    <p>Karate + Gradle gives you a fast, readable, and low-maintenance way to automate REST APIs. Start with a small smoke suite, wire it to CI, then grow into contract and negative testing with confident parallel runs. Happy testing!</p>
+  </main>
+
+  <footer>
+    <p>© 2025 Karate API Automation Blog</p>
+  </footer>
+</body>
+</html>
