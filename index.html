@@ -73,7 +73,7 @@
         <a href="#projects">Projects</a>
         <a href="#skills">Skills</a>
         <a href="#contact">Contact</a>
-        <a class="btn" href=\"./RimpaChoudhury_Resume.pdf\" target="_blank" rel="noopener">Résumé</a>
+        <a class="btn" href="./RimpaChoudhury_Resume.pdf" target="_blank" rel="noopener">Résumé</a>
       </nav>
     </div>
   </header>
@@ -140,7 +140,7 @@
               <h3>E2E ML Solution to Forecast Sales & Optimize Inventory</h3>
               <p>Partnered with SuperKart—a multi-city retail chain—via The University of Texas at Austin to develop a forecasting system that predicts outlet-level sales revenue, enabling data-driven procurement and regional strategies. Performed EDA, handled missing values/outliers, engineered features, and created a reusable preprocessing pipeline. Trained Random Forest and XGBoost models with grid-search, significantly reducing RMSE over baseline.</p>
               <p>Backend: Exposed the model via Flask REST API, containerized with Docker, and hosted on Hugging Face Spaces for scalable inference. Frontend: Developed an interactive Streamlit app—also deployed to Hugging Face Spaces—to visualize forecasts and enable what-if scenario planning.</p>
-              <p><a class='extlink' href='https://huggingface.co/spaces/rimpachoudhury/SuperKart_FE' target='_blank' rel='noopener noreferrer'>View on Hugging Face ↗</a></p>
+              <p><a class='extlink' href='./RimpaChoudhury_Resume.pdf' target='_blank' rel='noopener noreferrer'>View on Hugging Face ↗</a></p>
               <div class="tags">
                 <span class="tag">Flask</span>
                 <span class="tag">Streamlit</span>
@@ -193,8 +193,8 @@
       </div>
       <div class="card" id="resume">
         <h2>Résumé</h2>
-        <p><a href=\"./RimpaChoudhury_Resume.pdf\" download>Download Résumé (PDF)</a><br>
-        <a href=\"./RimpaChoudhury_Resume.pdf\" target="_blank">View Résumé Online</a></p>
+        <p><a href="./RimpaChoudhury_Resume.pdf" download>Download Résumé (PDF)</a><br>
+        <a href="./RimpaChoudhury_Resume.pdf" target="_blank">View Résumé Online</a></p>
         <p>LinkedIn: <a href="https://www.linkedin.com/in/rimpachoudhury" target="_blank">linkedin.com/in/rimpachoudhury</a></p>
       </div>
     </section>
@@ -233,16 +233,4 @@
       var OFFSET = 88;
       document.querySelectorAll('a[href^="#"]').forEach(function(a){
         a.addEventListener('click', function(e){
-          var id = a.getAttribute('href').slice(1);
-          var el = document.getElementById(id);
-          if(el){
-            e.preventDefault();
-            var y = el.getBoundingClientRect().top + window.pageYOffset - OFFSET;
-            window.scrollTo({ top: y, behavior: 'smooth' });
-          }
-        });
-      });
-    })();
-  </script>
-</body>
-</html>
+          var
