@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kicking off: QA agents for RAG — Rimpa Choudhury</title>
+  <meta name="description" content="Blog post: Kicking off QA agents for RAG by Rimpa Choudhury." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { font-family:Inter,system-ui,sans-serif; margin:0; padding:2rem; line-height:1.6; color:#0f172a; background:#fff; max-width:800px; margin:auto; }
+    h1 { font-size:2.2rem; margin-bottom:.5rem; }
+    h2 { margin-top:2rem; }
+    a { color:#5b3df5; }
+    .meta { color:#475569; font-size:.9rem; margin-bottom:1.5rem; }
+    .back { display:inline-block; margin-bottom:2rem; font-size:.95rem; }
+    footer { margin-top:3rem; font-size:.85rem; color:#475569; text-align:center; }
+  </style>
+</head>
+<body>
+  <a href="index.html#blog" class="back">← Back to Blog</a>
+  <h1>Kicking off: QA agents for RAG</h1>
+  <div class="meta">Published September 9, 2025</div>
+
+  <p>Retrieval-Augmented Generation (RAG) has quickly become the go-to approach for grounding large language models with external knowledge. By combining a <strong>retriever</strong> (e.g., Milvus, Chroma) with a <strong>generator</strong> (e.g., GPT, Llama), RAG systems can provide context-aware answers that go beyond the model’s static training data.</p>
+
+  <p>But here’s the catch: RAG still isn’t immune to <strong>hallucinations</strong>, irrelevant retrievals, or inconsistent answers. That’s where <strong>QA agents for RAG</strong> come in.</p>
+
+  <h2>What are QA agents for RAG?</h2>
+  <p>Think of them as automated testers + guardrails for your RAG pipeline. A QA agent continuously:</p>
+  <ul>
+    <li><strong>Evaluates</strong>: Runs curated test queries and checks if answers match ground truth or align with retrieved passages.</li>
+    <li><strong>Guards</strong>: Flags responses that drift from source documents, break formatting rules, or expose restricted information.</li>
+  </ul>
+
+  <h2>Why it matters</h2>
+  <ul>
+    <li><strong>Trust</strong>: Improves stakeholder confidence by measuring faithfulness and factuality.</li>
+    <li><strong>Iteration</strong>: Surfaces weak retrievals or poor prompts early.</li>
+    <li><strong>Scalability</strong>: Automates what used to be slow, manual spot-checking.</li>
+  </ul>
+
+  <h2>Typical workflow</h2>
+  <ol>
+    <li>Define a test set of representative queries.</li>
+    <li>Run them through the RAG pipeline.</li>
+    <li>Let the QA agent score answers on relevance, accuracy, and readability.</li>
+    <li>Track metrics like retrieval precision, context coverage, and hallucination rate.</li>
+    <li>Feed results back into CI/CD pipelines so every model or retriever change is tested automatically.</li>
+  </ol>
+
+  <h2>Tools I’ve been exploring</h2>
+  <ul>
+    <li><strong>DeepEval</strong> for faithfulness & relevance scoring</li>
+    <li><strong>LangChain evaluation modules</strong> for structured QA</li>
+    <li>Custom <strong>assertion-based tests</strong> for domain-specific rules</li>
+  </ul>
+
+  <p>✨ This initiative is about making RAG reliable at scale — not just clever demos. With QA agents in place, every iteration of the pipeline becomes measurable, comparable, and trustworthy.</p>
+
+  <footer>© <span id="year"></span> Rimpa Choudhury</footer>
+  <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
+</body>
+</html>
