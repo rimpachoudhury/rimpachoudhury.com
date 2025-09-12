@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RAG App — Design Document</title>
+  <style>
+    :root{
+      --bg:#0b1020; --card:#121938; --ink:#e9ecff; --muted:#aab3ff; --accent:#7c86ff; --line:#273062;
+      --ok:#2ecc71; --warn:#ffb020; --err:#ff6b6b;
+    }
+    *{box-sizing:border-box}
+    body{margin:0; font-family:Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji; background:var(--bg); color:var(--ink);}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    header{position:sticky; top:0; z-index:10; backdrop-filter: blur(8px); background:rgba(11,16,32,.8); border-bottom:1px solid var(--line)}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 16px}
+    .top{display:flex; align-items:center; justify-content:space-between; padding:14px 0;}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:36px;height:36px;border-radius:12px;background:linear-gradient(135deg,#1f2a68, #6a67ff);display:grid;place-items:center;color:white;font-weight:700}
+    .pill{font-size:12px;color:var(--muted)}
+    main{padding:28px 0 64px}
+    .grid{display:grid; grid-template-columns: 1fr; gap:18px}
+    @media (min-width: 900px){ .grid{ grid-template-columns: 280px 1fr } }
+    nav.section-nav{position:sticky; top:72px; align-self:start; border:1px solid var(--line); background:linear-gradient(180deg, #0f1430, #0b1020); border-radius:14px; padding:14px}
+    nav.section-nav h3{margin:0 0 8px 0; font-size:14px; color:var(--muted); letter-spacing:.4px; text-transform:uppercase}
+    nav.section-nav a{display:block; padding:8px 10px; border-radius:10px; color:var(--ink)}
+    nav.section-nav a:hover{background:#182052}
+    section.card{border:1px solid var(--line); background:linear-gradient(180deg, #121938, #0f1430); border-radius:16px; padding:20px 20px}
+    h1{font-size:28px; margin:0 0 6px 0}
+    h2{font-size:20px; margin:0 0 10px 0}
+    h3{font-size:16px; margin:16px 0 6px}
+    p, li{line-height:1.7}
+    code, pre{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; background:#0b1130; border:1px solid #1b2352; border-radius:8px}
+    code{padding:2px 6px}
+    pre{padding:12px; overflow:auto}
+    .kvl{display:grid; grid-template-columns: 160px 1fr; gap:12px; margin:10px 0}
+    .tag{display:inline-block; padding:2px 8px; border:1px solid var(--line); border-radius:999px; font-size:12px; color:var(--muted); margin-right:6px}
+    .diagram{background:#0b1130; border:1px dashed #39438b; padding:12px; border-radius:10px; font-size:13px; overflow:auto}
+    .callout{border-left:4px solid var(--accent); background:#0e163b; padding:10px 12px; border-radius:6px}
+    .check{color:var(--ok)} .warn{color:var(--warn)} .err{color:var(--err)}
+    footer{color:#8f98ff; font-size:12px; padding:24px 0 40px; text-align:center}
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <div class="brand">
+      <div class="logo">RAG</div>
+      <div>
+        <div class="pill">Design Document</div>
+        <strong>RAG QA Knowledge Assistant</strong>
+      </div>
+    </div>
+    <div class="pill">by Rimpa Choudhury</div>
+  </div>
+</header>
+
+<main class="wrap grid">
+  <nav class="section-nav">
+    <h3>Sections</h3>
+    <a href="#overview">Overview</a>
+    <a href="#arch">Architecture</a>
+    <a href="#flow">Request Flow</a>
+    <a href="#components">Components</a>
+    <a href="#retrieval">Retrieval Strategy</a>
+    <a href="#security">Security</a>
+  </nav>
+
+  <div class="content">
+    <section class="card" id="overview">
+      <h1>RAG QA Knowledge Assistant</h1>
+      <p>
+        A lightweight Retrieval‑Augmented Generation (RAG) application that answers questions from a curated Quality Engineering corpus
+        (API specs, automation snippets, CI/CD tips). The frontend performs client‑side retrieval for a demo corpus; the backend calls an LLM to synthesize grounded answers and returns citations.
+      </p>
+      <div class="kvl">
+        <div><span class="tag">Frontend</span></div><div>Static HTML/JS (GitHub Pages)</div>
+        <div><span class="tag">Backend</span></div><div>Serverless API (<code>/api/rag-llm</code> on Vercel)</div>
+        <div><span class="tag">Model</span></div><div><code>gpt-4o-mini</code> via OpenAI Chat Completions</div>
+        <div><span class="tag">Corpus</span></div><div>Small demo set (client‑side). Swappable with vector DB later</div>
+      </div>
+      <div class="callout"><strong>Live demo:</strong> <a href="https://rimpachoudhury.github.io/rag-app/qa-knowledge-assistant-rag-demo.html" target="_blank" rel="noopener">QA Knowledge Assistant</a></div>
+    </section>
+
+    <section class="card" id="goals">
+      <h2>Goals & Non‑Goals</h2>
+      <h3>Goals</h3>
+      <ul>
+        <li>Deliver fast, grounded answers with clear citations from QA knowledge.</li>
+        <li>Keep architecture simple, deployable in minutes (Pages + Vercel).</li>
+        <li>Demonstrate RAG patterns suitable for enterprise QA documentation.</li>
+      </ul>
+      <h3>Non‑Goals</h3>
+      <ul>
+        <li>Not a production search for all internal docs (demo scale only).</li>
+        <li>No authentication/authorization of users (public demo).</li>
+        <li>No write‑back to source systems (read‑only).</li>
+      </ul>
+    </section>
+
+    <section class="card" id="arch">
+      <h2>Architecture</h2>
+      <div class="diagram"><pre>
++-------------------+        HTTPS         +---------------------------+
+|   Browser (UI)    |  ---- POST JSON ---> |   Serverless API (Vercel) |
+|  Demo Retrieval   |                      |   /api/rag-llm            |
+|  (TF-IDF, cosine) |  <--- JSON Answer -- |   (calls OpenAI)          |
++---------+---------+                      +-----------+---------------+
+          |                                             |
+          | top-k chunks                                | OpenAI Chat Completions
+          v                                             v
+   Small demo corpus (in-page)                 gpt-4o-mini synthesizes answer
+                                              grounded in provided chunks
+      </pre></div>
+      <p>The UI retrieves top‑k text chunks locally, shows citations, and optionally calls the backend LLM for a refined answer. Keys are kept server‑side.</p>
+    </section>
+
+    <section class="card" id="flow">
+      <h2>Request Flow</h2>
+      <ol>
+        <li>User question → UI tokenizes the query and ranks chunk vectors (TF‑IDF + cosine).</li>
+        <li>UI shows retrieved chunks; builds a prompt payload with top‑k chunks (id, title, url, text).</li>
+        <li>UI <code>POST</code>s to <code>/api/rag-llm</code> with <code>{ question, citations[] }</code>.</li>
+        <li>Serverless builds a strict system prompt, calls OpenAI <code>gpt-4o-mini</code> with temperature ~0.2.</li>
+        <li>Serverless returns <code>{ answer }</code>; UI renders answer + citations.</li>
+      </ol>
+      <h3>Example request</h3>
+      <pre>POST https://&lt;your-vercel-app&gt;.vercel.app/api/rag-llm
+Content-Type: application/json
+
+{
+  "question": "How do we authenticate to the Tele API in QA?",
+  "citations": [
+    { "id": "DOC-API-TELE-AUTH#1", "title": "Tele API – Auth in QA", "url": "...", "text": "OAuth2 client_credentials ..." }
+  ]
+}</pre>
+    </section>
+
+    <section class="card" id="components">
+      <h2>Components</h2>
+      <h3>Frontend</h3>
+      <ul>
+        <li>Single HTML page with Tailwind CDN, minimal JS.</li>
+        <li>Local TF‑IDF index for demo corpus; highlight and score display.</li>
+        <li>Graceful fallback: extractive synthesis if LLM is unreachable.</li>
+      </ul>
+      <h3>Backend</h3>
+      <ul>
+        <li>Vercel serverless function: <code>api/rag-llm.js</code>.</li>
+        <li>Env var: <code>OPENAI_API_KEY</code> (never exposed client‑side).</li>
+        <li>Validates payload, constructs prompt, calls OpenAI, returns JSON.</li>
+      </ul>
+    </section>
+
+    <section class="card" id="retrieval">
+      <h2>Retrieval Strategy</h2>
+      <p>For the demo, retrieval uses client‑side TF‑IDF vectors built from small paragraphs. Production options:</p>
+      <ul>
+        <li>Embed chunks with a modern text embedding model; store in a vector DB (Pinecone, Chroma, pgvector).</li>
+        <li>Hybrid search: BM25 (keyword) + dense vectors → rerank with a cross‑encoder.</li>
+        <li>Chunking policies: ~300–500 tokens with overlap; keep metadata (source, section, updated_at).</li>
+      </ul>
+      <h3>Top‑k policy</h3>
+      <p>k=4–8 typically balances context window cost and answer quality. For small corpora, k=6 is fine.</p>
+    </section>
+
+
+    <section class="card" id="security">
+      <h2>Security & Privacy</h2>
+      <ul>
+        <li>API keys live only on the serverless function (<code>OPENAI_API_KEY</code>).</li>
+        <li>Enable CORS only for your site if you expose the API cross‑origin.</li>
+        <li>Log at INFO level with request IDs; never log secrets or full chunk text in production.</li>
+        <li>Rate‑limit per IP to prevent abuse (e.g., 60 rpm).</li>
+      </ul>
+      <div class="callout"><span class="warn">Note:</span> The public demo corpus contains no sensitive information. For internal corpora, add auth and access controls.</div>
+    </section>
+
+
+    
+
+    
+  </div>
+</main>
+
+<footer>
+  © <span id="yy"></span> Rimpa Choudhury — RAG QA Knowledge Assistant
+</footer>
+<script>
+  document.getElementById('yy').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
